@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.TreeView;assembly=Syncfusion.Maui.TreeView"
+             xmlns:treeviewengine="clr-namespace:Syncfusion.TreeView.Engine;assembly=Syncfusion.Maui.TreeView"
+             xmlns:local="clr-namespace:MAUITreeView"
+             x:Class="MAUITreeView.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:TreeViewViewModel x:Name="viewModel"/>
+    </ContentPage.BindingContext>
+    
+    <Grid>
+        <syncfusion:SfTreeView x:Name="treeView"
+                                ItemHeight="25"
+                                Indentation="20"
+                                ExpanderWidth="25"                                
+                                ItemsSource="{Binding ImageNodeInfo}"  
+                                AutoExpandMode="RootNodesExpanded" NodePopulationMode="Instant">
+            <syncfusion:SfTreeView.HierarchyPropertyDescriptors>
+                <treeviewengine:HierarchyPropertyDescriptor TargetType="{x:Type local:Countries}" ChildPropertyName="States"/>
+                <treeviewengine:HierarchyPropertyDescriptor TargetType="{x:Type local:States}" ChildPropertyName="Cities"/>
+            </syncfusion:SfTreeView.HierarchyPropertyDescriptors>
+            <syncfusion:SfTreeView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid x:Name="grid" BackgroundColor="Transparent">
+                            <Label LineBreakMode="WordWrap" FontSize="14"
+                                                    Text="{Binding Name}"
+                                                    TextColor="Black"
+                                                    VerticalTextAlignment="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </syncfusion:SfTreeView.ItemTemplate>
+        </syncfusion:SfTreeView>
+    </Grid>
+    
+</ContentPage>
